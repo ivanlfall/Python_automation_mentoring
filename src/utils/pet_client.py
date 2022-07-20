@@ -1,6 +1,5 @@
 from json import dumps
 
-from core.api_core import APIRequest
 from utils.base_client import BaseClient
 from config import BASE_URL
 from utils.helpers.get_me import Factory
@@ -14,12 +13,14 @@ class PetClient(BaseClient):
         super().__init__()
 
         self.base_url = f'{BASE_URL}/pet'
-        self.request = APIRequest()
 
     def create_pet(self, body=None):
-        pet_id, new_pet = self._factory.get_me(Factory.PET)
-
-        payload = dumps(new_pet)
+        if body == None:
+            pet_id, new_pet = self._factory.get_me(Factory.PET)
+            payload = dumps(new_pet)
+        else:
+            payload = dumps(body)
+            pet_id = body["id"]
 
         response = self.request.post(self.base_url, payload, self.headers)
         return pet_id, response
