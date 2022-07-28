@@ -53,14 +53,3 @@ class Factory:
                   "phone": self.fake.phone_number(),
                   "userStatus": 0
                 }
-
-
-# fake = Faker()
-#
-# # print(fake.name())
-# # print(fake.address())
-# # print(fake.last_name())
-# # print(fake.user_name())
-# # print(fake.email())
-# # print(fake.password())
-# print(fake.phone_number())

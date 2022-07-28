@@ -15,7 +15,7 @@ class PetClient(BaseClient):
         self.base_url = f'{BASE_URL}/pet'
 
     def create_pet(self, body=None):
-        if body == None:
+        if body is None:
             pet_id, new_pet = self._factory.get_me(Factory.PET)
             payload = dumps(new_pet)
         else:
