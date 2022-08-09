@@ -1,2 +1,4 @@
 .idea
-myTests.py
+my_tests.py
+*.DS_Store
+*__pycache__/
