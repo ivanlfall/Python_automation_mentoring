@@ -12,9 +12,7 @@ def assert_that_body_content_are_equals(send_body, response_body):
 
 
 def assert_that_is_the_correct_schema(schema, entity):
-
     validator = Validator(schema)
     is_valid = validator.validate(entity)
-    print(f'validator = {validator}')
-    print(f'validator errors = {validator.errors}')
+
     assert_that(is_valid, validator.errors).is_true()

@@ -1,12 +1,13 @@
-import random
 from faker import Faker
+
+from resources.data import animal
+
 
 class Factory:
 
     fake = Faker()
 
     PET = 'pet'
-    STORE = 'store'
     USER = 'user'
 
     def get_me(self, an_object):
@@ -20,32 +21,29 @@ class Factory:
                 return None
 
     def __get_me_a_pet(self):
-        random_id = random.randint(0, 1000)
-        return random_id, {
-                "id": random_id,
+        return {
+                "id": self.fake.unique.random_int(min=0, max=99999),
                 "category": {
-                    "id": 1,
-                    "name": "Dog"
+                    "id": self.fake.unique.random_int(min=0, max=9999),
+                    "name": self.fake.random_element(animal)
                 },
-                "name": "Corbata",
+                "name": self.fake.first_name(),
                 "photoUrls": [
-                    "string"
+                    self.fake.file_name(category='image')
                 ],
                 "tags": [
                     {
-                        "id": 1,
-                        "name": "Little"
+                        "id": self.fake.unique.random_int(min=0, max=9999),
+                        "name": ""
                     }
                 ],
-                "status": "available"
+                "status": self.fake.random_element(['available', 'pending', 'sold'])
         }
 
     def __get_me_a_user(self):
-        random_id = random.randint(0, 1000)
-        user_name = self.fake.user_name()
-        return user_name, {
-                  "id": random_id,
-                  "username": user_name,
+        return {
+                  "id": self.fake.unique.random_int(min=0, max=99999),
+                  "username": self.fake.user_name(),
                   "firstName": self.fake.first_name(),
                   "lastName": self.fake.last_name(),
                   "email": self.fake.email(),
