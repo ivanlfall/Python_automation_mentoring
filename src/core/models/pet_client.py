@@ -2,33 +2,32 @@ import json
 from json import dumps
 
 from config import BASE_URL
-from utils.base_client import BaseClient
+from core.models.base_client import BaseClient
 from utils.helpers.get_me import Factory
 
 
-class UserClient(BaseClient):
+class PetClient(BaseClient):
 
     _factory = Factory()
 
     def __init__(self):
         super().__init__()
+        self.base_url = f'{BASE_URL}/pet'
 
-        self.base_url = f'{BASE_URL}/user'
-
-    def create_user(self, body=None):
+    def create_pet(self, body=None):
         if body is None:
-            new_user = self._factory.get_me(Factory.USER)
-            payload = dumps(new_user)
+            new_pet = self._factory.get_me(Factory.PET)
+            payload = dumps(new_pet)
         else:
             payload = dumps(body)
 
         response = self.request.post(self.base_url, payload, self.headers)
         return json.loads(payload), response
 
-    def get_user_by_username(self, username):
-        url = f'{self.base_url}/{username}'
+    def get_pet_by_id(self, pet_id):
+        url = f'{self.base_url}/{pet_id}'
         return self.request.get(url)
 
-    def delete_user_by_username(self, username):
-        url = f'{self.base_url}/{username}'
+    def delete_pet_by_id(self, pet_id):
+        url = f'{self.base_url}/{pet_id}'
         return self.request.delete(url)

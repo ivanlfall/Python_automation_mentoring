@@ -2,9 +2,9 @@ import requests
 from assertpy import assert_that
 
 from core.assertions.custom_assertions import assert_that_body_content_are_equals, assert_that_is_the_correct_schema
+from core.models.pet_client import PetClient
 from utils.helpers.get_me import Factory
 from utils.helpers.print_with_format import print_test_info, print_test_info_with_schema
-from utils.pet_client import PetClient
 
 _factory = None
 pet_client = None
