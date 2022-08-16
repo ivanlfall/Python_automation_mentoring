@@ -44,8 +44,8 @@ class Factory:
         return {
                   "id": self.fake.unique.random_int(min=0, max=99999),
                   "username": self.fake.user_name(),
-                  "firstName": self.fake.first_name(),
-                  "lastName": self.fake.last_name(),
+                  "first_name": self.fake.first_name(),
+                  "last_name": self.fake.last_name(),
                   "email": self.fake.email(),
                   "password": self.fake.password(),
                   "phone": self.fake.phone_number(),

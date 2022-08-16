@@ -2,7 +2,7 @@ import json
 from json import dumps
 
 from config import BASE_URL
-from core.models.base_client import BaseClient
+from core.models_api.base_client import BaseClient
 from utils.helpers.get_me import Factory
 
 
@@ -32,3 +32,7 @@ class UserClient(BaseClient):
     def delete_user_by_username(self, username):
         url = f'{self.base_url}/{username}'
         return self.request.delete(url)
+
+    def login_user(self, username, password):
+        url = f'{self.base_url}/login?username={username}&password={password}'
+        return self.request.get(url)

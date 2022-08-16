@@ -2,7 +2,7 @@ import json
 from json import dumps
 
 from config import BASE_URL
-from core.models.base_client import BaseClient
+from core.models_api.base_client import BaseClient
 from utils.helpers.get_me import Factory
 
 
