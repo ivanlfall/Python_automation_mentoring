@@ -1,10 +1,10 @@
 import requests
 from assertpy import assert_that
 
+from core.api_wrappers.pet_client import PetClient
 from core.assertions.custom_assertions import assert_that_body_content_are_equals, assert_that_is_the_correct_schema
-from core.models_api.pet_client import PetClient
-from utils.helpers.get_me import Factory
-from utils.helpers.print_with_format import print_test_info, print_test_info_with_schema
+from utils.get_me import Factory
+from utils.print_with_format import print_test_info, print_test_info_with_schema
 
 _factory = Factory()
 pet_client = PetClient()

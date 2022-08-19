@@ -2,8 +2,8 @@ import json
 from json import dumps
 
 from config import BASE_URL
-from core.models_api.base_client import BaseClient
-from utils.helpers.get_me import Factory
+from core.api_wrappers.base_client import BaseClient
+from utils.get_me import Factory
 
 
 class PetClient(BaseClient):

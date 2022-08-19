@@ -1,5 +1,4 @@
 
-
 class User:
 
     def __init__(self, status, message, user_id, first_name, last_name):
