@@ -16,4 +16,8 @@ class IndexPetStore:
         self.browser.get(HOME_PET_STORE)
 
     def search_pet(self, search_input):
-        pass
+        self.browser.find_element(*self.SEARCH_INPUT).send_keys(search_input)
+        self.browser.find_element(*self.SEARCH_BUTTON).click()
+
+    def title(self):
+        return self.browser.title
