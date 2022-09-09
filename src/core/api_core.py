@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from json import JSONDecodeError
 
 import requests
 
@@ -31,8 +32,8 @@ class APIRequest:
 
         try:
             as_dict = response.json()
-        except Exception:
-            as_dict = {}
+        except JSONDecodeError:
+            as_dict = None
 
         headers = response.headers
 
