@@ -1,7 +1,7 @@
+import pytest
 from selenium.webdriver.common.by import By
 
 from config import HOME_PET_STORE
-
 
 class IndexPetStore:
 
@@ -9,15 +9,15 @@ class IndexPetStore:
     SEARCH_BUTTON = (By.NAME, 'searchProducts')
     SEARCH_INPUT = (By.NAME, 'keyword')
 
-    def __init__(self, browser):
-        self.browser = browser
+    def __init__(self, driver):
+        self.driver = driver
 
     def load(self):
-        self.browser.get(HOME_PET_STORE)
+        self.driver.get(HOME_PET_STORE)
 
     def search_pet(self, search_input):
-        self.browser.find_element(*self.SEARCH_INPUT).send_keys(search_input)
-        self.browser.find_element(*self.SEARCH_BUTTON).click()
+        self.driver.find_element(*self.SEARCH_INPUT).send_keys(search_input)
+        self.driver.find_element(*self.SEARCH_BUTTON).click()
 
     def title(self):
-        return self.browser.title
+        return self.driver.title
