@@ -1,9 +1,10 @@
-import pytest
 from selenium.webdriver.common.by import By
 
 from config import HOME_PET_STORE
+from core.page_models.base_page import BasePage
 
-class IndexPetStore:
+
+class IndexPetStore(BasePage):
 
     SIGN_IN = (By.XPATH, '//a[contains(text(),"Sign In")]')
     SEARCH_BUTTON = (By.NAME, 'searchProducts')

@@ -1,20 +1,12 @@
-import pytest
 from assertpy import assert_that
 
-from core.page_models.index_pet_store import IndexPetStore
-from core.page_models.result_pet_store import ResultPagePetStore
 
-
-
-def test_home(driver):
-    index_home = IndexPetStore(driver)
+def test_home(index_home):
     index_home.load()
     assert_that(index_home.title()).is_equal_to('JPetStore Demo')
 
 
-def test_search_bar(driver):
-    index_home = IndexPetStore(driver)
-    result_page = ResultPagePetStore(driver)
+def test_search_bar(index_home, result_page):
     search_input = 'Bulldog'
     index_home.load()
     index_home.search_pet(search_input)

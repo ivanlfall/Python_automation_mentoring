@@ -1,7 +1,9 @@
 from selenium.webdriver.common.by import By
 
+from core.page_models.base_page import BasePage
 
-class RegisterPage:
+
+class RegisterPage(BasePage):
 
     USER_ID = (By.CSS_SELECTOR, "[name='username']")
     PASSWORD = (By.CSS_SELECTOR, "[name='password']")
