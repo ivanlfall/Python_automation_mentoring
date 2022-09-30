@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from core.page_models.base_page import BasePage
+from resources.data import INDEX_TITLE
 
 
 class RegisterPage(BasePage):
@@ -22,23 +23,21 @@ class RegisterPage(BasePage):
     def __init__(self, driver):
         self.driver = driver
 
-    def go_to_register_page(self):
-        pass
+    def was_user_registered(self):
+        return self.driver.title == INDEX_TITLE
 
-
-    def create_account(self, user_id, password, repeat_password, first_name, last_name, email,
-                       phone, address, city, state, zip_code, country):
-        self.driver.find_element(*self.USER_ID).send_keys(user_id)
-        self.driver.find_element(*self.PASSWORD).send_keys(password)
-        self.driver.find_element(*self.REPEAT_PASSWORD).send_keys(repeat_password)
-        self.driver.find_element(*self.FIRST_NAME).send_keys(first_name)
-        self.driver.find_element(*self.LAST_NAME).send_keys(last_name)
-        self.driver.find_element(*self.EMAIL).send_keys(email)
-        self.driver.find_element(*self.PHONE).send_keys(phone)
-        self.driver.find_element(*self.ADDRESS).send_keys(address)
-        self.driver.find_element(*self.CITY).send_keys(city)
-        self.driver.find_element(*self.STATE).send_keys(state)
-        self.driver.find_element(*self.ZIP).send_keys(zip_code)
-        self.driver.find_element(*self.COUNTRY).send_keys(country)
+    def create_account(self, user):
+        self.driver.find_element(*self.USER_ID).send_keys(user['user_id'])
+        self.driver.find_element(*self.PASSWORD).send_keys(user['password'])
+        self.driver.find_element(*self.REPEAT_PASSWORD).send_keys(user['password'])
+        self.driver.find_element(*self.FIRST_NAME).send_keys(user['first_name'])
+        self.driver.find_element(*self.LAST_NAME).send_keys(user['last_name'])
+        self.driver.find_element(*self.EMAIL).send_keys(user['email'])
+        self.driver.find_element(*self.PHONE).send_keys(user['phone'])
+        self.driver.find_element(*self.ADDRESS).send_keys(user['address'])
+        self.driver.find_element(*self.CITY).send_keys(user['city'])
+        self.driver.find_element(*self.STATE).send_keys(user['state'])
+        self.driver.find_element(*self.ZIP).send_keys(user['zip_code'])
+        self.driver.find_element(*self.COUNTRY).send_keys(user['country'])
         self.driver.find_element(*self.CREATE_ACCOUNT).click()
 

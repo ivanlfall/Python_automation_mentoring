@@ -22,3 +22,6 @@ class IndexPetStore(BasePage):
 
     def title(self):
         return self.driver.title
+
+    def go_to_sign_in(self):
+        self.driver.find_element(*self.SIGN_IN).click()

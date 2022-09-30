@@ -9,6 +9,7 @@ class Factory:
 
     PET = 'pet'
     USER = 'user'
+    USER_FOR_REGISTER = 'user_for_register'
 
     def get_me(self, an_object):
 
@@ -17,6 +18,8 @@ class Factory:
                 return self.__get_me_a_pet()
             case Factory.USER:
                 return self.__get_me_a_user()
+            case Factory.USER_FOR_REGISTER:
+                return self.__get_me_a_user_for_register()
             case default:
                 return None
 
@@ -51,3 +54,18 @@ class Factory:
                   "phone": self.fake.phone_number(),
                   "userStatus": 0
                 }
+
+    def __get_me_a_user_for_register(self):
+        return {
+            "user_id": self.fake.user_name(),
+            "password": self.fake.password(),
+            "first_name": self.fake.first_name(),
+            "last_name": self.fake.last_name(),
+            "email": self.fake.email(),
+            "phone": self.fake.phone_number(),
+            "address": self.fake.street_address(),
+            "city": self.fake.city(),
+            "state": self.fake.state(),
+            "zip_code": self.fake.postcode(),
+            "country": self.fake.country()
+            }

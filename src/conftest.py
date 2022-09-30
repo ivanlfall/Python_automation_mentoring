@@ -4,7 +4,9 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 from core.page_models.index_pet_store import IndexPetStore
+from core.page_models.regiter_user_pet_store import RegisterPage
 from core.page_models.result_pet_store import ResultPagePetStore
+from core.page_models.sign_in import SignInPetStore
 
 
 @pytest.fixture
@@ -20,6 +22,16 @@ def driver():
 @pytest.fixture
 def index_home(driver):
     yield IndexPetStore(driver)
+
+
+@pytest.fixture
+def register_page(driver):
+    yield RegisterPage(driver)
+
+
+@pytest.fixture
+def sign_in_page(driver):
+    yield SignInPetStore(driver)
 
 
 @pytest.fixture
