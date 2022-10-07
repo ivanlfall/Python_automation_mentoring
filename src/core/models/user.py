@@ -1,18 +1,12 @@
 
+
 class User:
-
-    def __init__(self, status, message, user_id, first_name, last_name):
-        self.__status = status
-        self.__message = message
-        self.__user_id = user_id
-        self.__first_name = first_name
-        self.__last_name = last_name
-
-    def get_user(self):
-        return {
-            'status': self.__status,
-            'message': self.__message,
-            'id': self.__user_id,
-            'first_name': self.__first_name,
-            'last_name': self.__last_name
-        }
+    def __init__(self, user_id, username, first_name, last_name, email, password, phone):
+        self.id = user_id
+        self.username = username
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.password = password
+        self.phone = phone
+        self.userStatus = 0

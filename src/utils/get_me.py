@@ -1,5 +1,7 @@
 from faker import Faker
 
+from core.models.user import User
+from core.models.user_for_register import UserForRegister
 from resources.data import animal
 
 
@@ -20,7 +22,7 @@ class Factory:
                 return self.__get_me_a_user()
             case Factory.USER_FOR_REGISTER:
                 return self.__get_me_a_user_for_register()
-            case default:
+            case _:
                 return None
 
     def __get_me_a_pet(self):
@@ -44,28 +46,28 @@ class Factory:
         }
 
     def __get_me_a_user(self):
-        return {
-                  "id": self.fake.unique.random_int(min=0, max=99999),
-                  "username": self.fake.user_name(),
-                  "first_name": self.fake.first_name(),
-                  "last_name": self.fake.last_name(),
-                  "email": self.fake.email(),
-                  "password": self.fake.password(),
-                  "phone": self.fake.phone_number(),
-                  "userStatus": 0
-                }
+        user_id = self.fake.unique.random_int(min=0, max=99999)
+        username = self.fake.user_name()
+        first_name = self.fake.first_name()
+        last_name = self.fake.last_name()
+        email = self.fake.email()
+        password = self.fake.password()
+        phone = self.fake.phone_number()
+
+        return User(user_id, username, first_name, last_name, email, password, phone)
 
     def __get_me_a_user_for_register(self):
-        return {
-            "user_id": self.fake.user_name(),
-            "password": self.fake.password(),
-            "first_name": self.fake.first_name(),
-            "last_name": self.fake.last_name(),
-            "email": self.fake.email(),
-            "phone": self.fake.phone_number(),
-            "address": self.fake.street_address(),
-            "city": self.fake.city(),
-            "state": self.fake.state(),
-            "zip_code": self.fake.postcode(),
-            "country": self.fake.country()
-            }
+        user_id = self.fake.user_name()
+        password = self.fake.password()
+        first_name = self.fake.first_name()
+        last_name = self.fake.last_name()
+        email = self.fake.email()
+        phone = self.fake.phone_number()
+        address = self.fake.street_address()
+        city = self.fake.city()
+        state = self.fake.state()
+        zip_code = self.fake.postcode()
+        country = self.fake.country()
+
+        return UserForRegister(user_id, password, first_name, last_name, email, phone, address,
+                               city, state, zip_code, country)
