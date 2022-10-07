@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+from core.models.element import Element
 from urls import HOME_PET_STORE
 from core.page_models.base_page import BasePage
 
@@ -16,12 +17,14 @@ class IndexPetStore(BasePage):
     def load(self):
         self.driver.get(HOME_PET_STORE)
 
-    def search_pet(self, search_input):
-        self.driver.find_element(*self.SEARCH_INPUT).send_keys(search_input)
-        self.driver.find_element(*self.SEARCH_BUTTON).click()
-
     def title(self):
         return self.driver.title
 
-    def go_to_sign_in(self):
-        self.driver.find_element(*self.SIGN_IN).click()
+    def sign_in_button(self):
+        return Element(self.driver, self.SIGN_IN)
+
+    def search_input(self):
+        return Element(self.driver, self.SEARCH_INPUT)
+
+    def search_button(self):
+        return Element(self.driver, self.SEARCH_BUTTON)

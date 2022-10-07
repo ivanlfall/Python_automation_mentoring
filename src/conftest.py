@@ -9,7 +9,7 @@ from core.page_models.result_pet_store import ResultPagePetStore
 from core.page_models.sign_in import SignInPetStore
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def driver():
     service = Service(ChromeDriverManager().install())
     options = webdriver.ChromeOptions()

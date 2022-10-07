@@ -2,7 +2,8 @@ import requests
 from assertpy import assert_that
 
 from core.api_wrappers.user_client import UserClient
-from core.assertions.custom_assertions import assert_that_body_content_are_equals, assert_that_is_the_correct_schema
+from core.assertions.custom_assertions import assert_that_body_content_are_equals, assert_that_is_the_correct_schema, \
+    assert_successful_operation
 from core.models.response_user import ResponseUser
 from utils.get_me import Factory
 from utils.print_with_format import print_test_info, print_test_info_with_schema
@@ -27,7 +28,7 @@ def test_existing_user_can_login():
     login_response = _user.login_user(user.username, user.password)
     print_test_info(login_response.endpoint, user.__dict__, login_response.as_dict, login_response.status_code)
 
-    assert_that(login_response.status_code).is_equal_to(requests.codes.ok)
+    assert_successful_operation(login_response)
     assert_that(login_response.as_dict['message']).contains('logged in user session:')
 
 
@@ -75,7 +76,7 @@ def test_new_user_can_be_added():
 
     print_test_info(response.endpoint, user.__dict__, response_user, response.status_code)
 
-    assert_that(response.status_code).described_as("Status code").is_equal_to(requests.codes.ok)
+    assert_successful_operation(response)
     assert_that_body_content_are_equals(user.__dict__, response_user)
 
 
@@ -83,7 +84,7 @@ def test_created_user_can_be_deleted():
     user, _ = _user.create_user()
 
     response = _user.delete_user_by_username(user.username)
-    assert_that(response.status_code).described_as("Status code").is_equal_to(requests.codes.ok)
+    assert_successful_operation(response)
 
     check_user = _user.get_user_by_username(user.username)
     print_test_info(response.endpoint, user.__dict__, response.as_dict, response.status_code)
