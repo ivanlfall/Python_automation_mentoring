@@ -1,7 +1,7 @@
 import json
 from json import dumps
 
-from config import BASE_URL
+from urls import BASE_URL
 from core.api_wrappers.base_client import BaseClient
 from utils.get_me import Factory
 
@@ -12,7 +12,6 @@ class UserClient(BaseClient):
 
     def __init__(self):
         super().__init__()
-
         self.base_url = f'{BASE_URL}/user'
 
     def create_user(self, body=None):

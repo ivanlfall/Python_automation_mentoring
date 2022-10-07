@@ -1,5 +1,6 @@
 from faker import Faker
 
+from core.models.pet import Pet
 from core.models.user import User
 from core.models.user_for_register import UserForRegister
 from resources.data import animal
@@ -26,24 +27,20 @@ class Factory:
                 return None
 
     def __get_me_a_pet(self):
-        return {
-                "id": self.fake.unique.random_int(min=0, max=99999),
-                "category": {
-                    "id": self.fake.unique.random_int(min=0, max=9999),
-                    "name": self.fake.random_element(animal)
-                },
-                "name": self.fake.first_name(),
-                "photoUrls": [
-                    self.fake.file_name(category='image')
-                ],
-                "tags": [
-                    {
-                        "id": self.fake.unique.random_int(min=0, max=9999),
-                        "name": ""
-                    }
-                ],
-                "status": self.fake.random_element(['available', 'pending', 'sold'])
+        pet_id = self.fake.unique.random_int(min=0, max=99999)
+        category = {
+            "id": self.fake.unique.random_int(min=0, max=9999),
+            "name": self.fake.random_element(animal)
         }
+        name = self.fake.first_name()
+        photo_urls = [self.fake.file_name(category='image')]
+        tags = [{
+                "id": self.fake.unique.random_int(min=0, max=9999),
+                "name": f"#{category['name']}"
+            }]
+        status = self.fake.random_element(['available', 'pending', 'sold'])
+
+        return Pet(pet_id, category, name, photo_urls, tags, status)
 
     def __get_me_a_user(self):
         user_id = self.fake.unique.random_int(min=0, max=99999)

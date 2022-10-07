@@ -1,3 +1,4 @@
+import requests
 from assertpy import assert_that, soft_assertions
 from cerberus import Validator
 
@@ -13,3 +14,7 @@ def assert_that_is_the_correct_schema(schema, entity):
     is_valid = validator.validate(entity)
 
     assert_that(is_valid, validator.errors).is_true()
+
+
+def assert_successful_operation(response):
+    assert_that(response.status_code).described_as('Status code').is_equal_to(requests.codes.ok)

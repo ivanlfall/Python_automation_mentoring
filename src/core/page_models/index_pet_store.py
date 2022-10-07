@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-from config import HOME_PET_STORE
+from urls import HOME_PET_STORE
 from core.page_models.base_page import BasePage
 
 

@@ -1,7 +1,7 @@
 import json
 from json import dumps
 
-from config import BASE_URL
+from urls import BASE_URL
 from core.api_wrappers.base_client import BaseClient
 from utils.get_me import Factory
 
@@ -17,12 +17,11 @@ class PetClient(BaseClient):
     def create_pet(self, body=None):
         if body is None:
             new_pet = self._factory.get_me(Factory.PET)
-            payload = dumps(new_pet)
         else:
-            payload = dumps(body)
-
+            new_pet = body
+        payload = dumps(new_pet.__dict__)
         response = self.request.post(self.base_url, payload, self.headers)
-        return json.loads(payload), response
+        return new_pet, response
 
     def get_pet_by_id(self, pet_id):
         url = f'{self.base_url}/{pet_id}'
