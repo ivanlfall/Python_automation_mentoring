@@ -14,14 +14,6 @@ class SignInPetStore(BasePage):
     def __init__(self, driver):
         self.driver = driver
 
-    def go_to_register_page(self):
-        self.driver.find_element(*self.REGISTER_BUTTON).click()
-
-    def login_user(self, username, password):
-        self.driver.find_element(*self.USERNAME_INPUT).send_keys(username)
-        self.driver.find_element(*self.PASSWORD_INPUT).send_keys(password)
-        self.driver.find_element(*self.LOGIN_BUTTON).click()
-
     def register_button(self):
         return Element(self.driver, self.REGISTER_BUTTON)
 

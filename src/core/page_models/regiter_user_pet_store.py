@@ -1,7 +1,9 @@
 from selenium.webdriver.common.by import By
 
+from core.models.element import Element
 from core.page_models.base_page import BasePage
 from resources.data import INDEX_TITLE
+from urls import REGISTER_USER_PAGE
 
 
 class RegisterPage(BasePage):
@@ -23,21 +25,51 @@ class RegisterPage(BasePage):
     def __init__(self, driver):
         self.driver = driver
 
+    def load(self):
+        self.driver.get(REGISTER_USER_PAGE)
+
     def was_user_registered(self):
         return self.driver.title == INDEX_TITLE
 
-    def create_account(self, user):
-        self.driver.find_element(*self.USER_ID).send_keys(user.id)
-        self.driver.find_element(*self.PASSWORD).send_keys(user.password)
-        self.driver.find_element(*self.REPEAT_PASSWORD).send_keys(user.password)
-        self.driver.find_element(*self.FIRST_NAME).send_keys(user.first_name)
-        self.driver.find_element(*self.LAST_NAME).send_keys(user.last_name)
-        self.driver.find_element(*self.EMAIL).send_keys(user.email)
-        self.driver.find_element(*self.PHONE).send_keys(user.phone)
-        self.driver.find_element(*self.ADDRESS).send_keys(user.address)
-        self.driver.find_element(*self.CITY).send_keys(user.city)
-        self.driver.find_element(*self.STATE).send_keys(user.state)
-        self.driver.find_element(*self.ZIP).send_keys(user.zip_code)
-        self.driver.find_element(*self.COUNTRY).send_keys(user.country)
-        self.driver.find_element(*self.CREATE_ACCOUNT).click()
+    def username_input(self):
+        return Element(self.driver, self.USER_ID)
+
+    def password_input(self):
+        return Element(self.driver, self.PASSWORD)
+
+    def repeat_password_input(self):
+        return Element(self.driver, self.REPEAT_PASSWORD)
+
+    def first_name_input(self):
+        return Element(self.driver, self.FIRST_NAME)
+
+    def last_name_input(self):
+        return Element(self.driver, self.LAST_NAME)
+
+    def email_input(self):
+        return Element(self.driver, self.EMAIL)
+
+    def phone_input(self):
+        return Element(self.driver, self.PHONE)
+
+    def address_input(self):
+        return Element(self.driver, self.ADDRESS)
+
+    def city_input(self):
+        return Element(self.driver, self.CITY)
+
+    def state_input(self):
+        return Element(self.driver, self.STATE)
+
+    def zip_code_input(self):
+        return Element(self.driver, self.ZIP)
+
+    def country_input(self):
+        return Element(self.driver, self.COUNTRY)
+
+    def create_account_button(self):
+        return Element(self.driver, self.CREATE_ACCOUNT)
+
+
+
 

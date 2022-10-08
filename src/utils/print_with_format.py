@@ -20,3 +20,7 @@ def print_test_info_with_schema(endpoint, response_body, schema):
     }
 
     print(json.dumps(final_message, indent=4))
+
+
+def print_sent_payload_from_object(sent_object):
+    print(json.dumps(sent_object.__dict__, indent=4))

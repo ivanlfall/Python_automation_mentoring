@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+from core.page_models.home_after_login import HomeAfterLogin
 from core.page_models.index_pet_store import IndexPetStore
 from core.page_models.regiter_user_pet_store import RegisterPage
 from core.page_models.result_pet_store import ResultPagePetStore
@@ -37,3 +38,7 @@ def sign_in_page(driver):
 @pytest.fixture
 def result_page(driver):
     yield ResultPagePetStore(driver)
+
+@pytest.fixture
+def home_after_login(driver):
+    yield HomeAfterLogin(driver)
