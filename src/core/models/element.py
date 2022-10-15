@@ -1,22 +1,34 @@
+from selenium.common import NoSuchElementException
+
+from utilities.utils import get_name_from_locator
+
 
 class Element:
 
     def __init__(self, driver, locator):
-        self.element = driver.find_element(*locator)
+        self.locator = locator
+        self.driver = driver
+
+    def __get_element(self):
+        return self.driver.find_element(*self.locator)
 
     def click(self):
-        self.element.click()
+        self.__get_element().click()
 
     def insert_value(self, value):
-        self.element.clear()
-        self.element.send_keys(value)
+        self.__get_element().clear()
+        self.__get_element().send_keys(value)
 
     def is_present(self):
-        return self.element.is_displayed()
+        try:
+            self.__get_element()
+            return True
+        except NoSuchElementException:
+            return False
 
     def get_inner_text(self):
-        return self.element.get_attribute('innerText')
+        return self.__get_element().get_attribute('innerText')
 
     def get_content(self):
-        return self.element
+        return get_name_from_locator(self.locator[1])
 

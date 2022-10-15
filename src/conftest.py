@@ -39,6 +39,7 @@ def sign_in_page(driver):
 def result_page(driver):
     yield ResultPagePetStore(driver)
 
+
 @pytest.fixture
 def home_after_login(driver):
     yield HomeAfterLogin(driver)

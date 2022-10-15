@@ -1,14 +1,14 @@
-from assertpy import assert_that
+from assertpy import assert_that, soft_assertions
 
 from resources.data import INDEX_TITLE
-from utils.get_me import Factory
-from utils.print_with_format import print_sent_payload_from_object
+from utilities.get_me import Factory
+from utilities.print_with_format import print_sent_payload_from_object
 
 
-def test_home(index_home):
+def test_home_load(index_home, register_page):
     index_home.load()
     assert_that(index_home.title()).is_equal_to(INDEX_TITLE)
-    assert_page_elements(index_home.elements())
+    assert_at_page(index_home)
 
 
 def test_search_bar(index_home, result_page):
@@ -20,7 +20,7 @@ def test_search_bar(index_home, result_page):
     assert_that(content_result).contains(search_input)
 
 
-def test_register_user(index_home, sign_in_page, register_page):
+def test_register_user_with_correct_data(index_home, sign_in_page, register_page):
     factory = Factory()
     user = factory.get_me(Factory.USER_FOR_REGISTER)
 
@@ -43,17 +43,16 @@ def test_register_user(index_home, sign_in_page, register_page):
     register_page.create_account_button().click()
     print_sent_payload_from_object(user)
 
-    assert_page_elements(index_home.elements())
+    assert_at_page(index_home)
 
 
-def test_login(index_home, sign_in_page, register_page, home_after_login):
+def test_login_successful_with_correct_data(index_home, sign_in_page, register_page, home_after_login):
     username, password = create_account(register_page)
     index_home.sign_in_button().click()
     sign_in_page.username_input().insert_value(username)
     sign_in_page.password_input().insert_value(password)
     sign_in_page.login_button().click()
-
-    assert_page_elements(home_after_login.elements())
+    assert_at_page(home_after_login)
 
 
 def create_account(register_page):
@@ -79,6 +78,8 @@ def create_account(register_page):
     return user.id, user.password
 
 
-def assert_page_elements(elements):
-    for element in elements:
-        assert_that(element.is_present()).described_as(element.get_content()).is_true()
+def assert_at_page(page):
+    with soft_assertions():
+        for element in page.elements():
+            error_message = f'In page {page} find element <{element.get_content()}>'
+            assert_that(element.is_present()).described_as(error_message).is_true()
