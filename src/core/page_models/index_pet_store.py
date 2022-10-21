@@ -12,6 +12,8 @@ class IndexPetStore(BasePage):
     SEARCH_INPUT = (By.NAME, 'keyword')
     SIDE_BAR = (By.CSS_SELECTOR, '[id=SidebarContent]')
     MAIN_CONTENT = (By.CSS_SELECTOR, '[id=MainImageContent]')
+    SIDE_BAR_DOGS_BUTTON = (By.XPATH, "//*[@id='SidebarContent']//a[contains(@href, 'DOGS')]")
+    SIDE_BAR_CATS_BUTTON = (By.XPATH, "//*[@id='SidebarContent']//a[contains(@href, 'CATS')]")
 
     def __init__(self, driver):
         self.driver = driver
@@ -31,6 +33,12 @@ class IndexPetStore(BasePage):
     def search_button(self):
         return Element(self.driver, self.SEARCH_BUTTON)
 
+    def side_bar_dogs_button(self):
+        return Element(self.driver, self.SIDE_BAR_DOGS_BUTTON)
+
+    def side_bar_cats_button(self):
+        return Element(self.driver, self.SIDE_BAR_CATS_BUTTON)
+
     def side_bar(self):
         return Element(self.driver, self.SIDE_BAR)
 
@@ -39,3 +47,5 @@ class IndexPetStore(BasePage):
 
     def elements(self):
         return [self.sign_in_button(), self.side_bar(), self.main_content()]
+
+    # //a[text()="K9-BD-01"] button to buy a bulldog
