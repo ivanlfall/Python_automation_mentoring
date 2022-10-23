@@ -6,7 +6,7 @@ from core.page_models.base_page import BasePage
 
 class BuyDetails(BasePage):
 
-    __CONTINUE_BUTTON = (By.CSS_SELECTOR, '[name="newOrder"]')
+    __CONTINUE_BUTTON = (By.CSS_SELECTOR, '[name=newOrder]')
 
     def __init__(self, driver):
         self.driver = driver

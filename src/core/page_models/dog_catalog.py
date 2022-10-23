@@ -1,3 +1,5 @@
+import random
+
 from selenium.webdriver.common.by import By
 
 from core.models.element import Element
@@ -6,11 +8,12 @@ from core.page_models.base_page import BasePage
 
 class DogCatalog(BasePage):
 
-    A_DOG = (By.XPATH, "//a[text()='K9-BD-01']")
+    __DOG_BREED_BUTTONS = (By.CSS_SELECTOR, "td>a")
 
     def __init__(self, driver):
         self.driver = driver
 
-    def choose_a_dog_button(self):
-        return Element(self.driver, self.A_DOG)
+    def dog_breed_choice(self):
+        elements = list(Element.list_from(self.driver, self.__DOG_BREED_BUTTONS))
+        return random.choice(elements)
 

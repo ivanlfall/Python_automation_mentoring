@@ -7,11 +7,11 @@ from urls import SIGN_IN
 
 class SignInPetStore(BasePage):
 
-    REGISTER_BUTTON = (By.XPATH, '//a[contains(text(),"Register")]')
-    USERNAME_INPUT = (By.CSS_SELECTOR, "[name=username]")
-    PASSWORD_INPUT = (By.CSS_SELECTOR, "[name=password]")
-    LOGIN_BUTTON = (By.CSS_SELECTOR, "[name=signon]")
-    MESSAGES_BLOCK = (By.CSS_SELECTOR, "[class=messages]")
+    __REGISTER_BUTTON = (By.XPATH, '//a[contains(text(),"Register")]')
+    __USERNAME_INPUT = (By.CSS_SELECTOR, "[name=username]")
+    __PASSWORD_INPUT = (By.CSS_SELECTOR, "[name=password]")
+    __LOGIN_BUTTON = (By.CSS_SELECTOR, "[name=signon]")
+    __MESSAGES_BLOCK = (By.CSS_SELECTOR, "[class=messages]")
 
     def __init__(self, driver):
         self.driver = driver
@@ -20,19 +20,19 @@ class SignInPetStore(BasePage):
         self.driver.get(SIGN_IN)
 
     def register_button(self):
-        return Element(self.driver, self.REGISTER_BUTTON)
+        return Element(self.driver, self.__REGISTER_BUTTON)
 
     def username_input(self):
-        return Element(self.driver, self.USERNAME_INPUT)
+        return Element(self.driver, self.__USERNAME_INPUT)
 
     def password_input(self):
-        return Element(self.driver, self.PASSWORD_INPUT)
+        return Element(self.driver, self.__PASSWORD_INPUT)
 
     def login_button(self):
-        return Element(self.driver, self.LOGIN_BUTTON)
+        return Element(self.driver, self.__LOGIN_BUTTON)
 
     def message_block(self):
-        return Element(self.driver, self.MESSAGES_BLOCK)
+        return Element(self.driver, self.__MESSAGES_BLOCK)
 
     def elements(self):
         return [self.register_button(), self.username_input(), self.password_input()]

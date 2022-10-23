@@ -5,12 +5,16 @@ from utilities.utils import get_name_from_locator
 
 class Element:
 
-    def __init__(self, driver, locator):
+    def __init__(self, driver, locator, element=None):
         self.locator = locator
         self.driver = driver
+        self.element = element
 
     def __get_element(self):
-        return self.driver.find_element(*self.locator)
+        if self.element is None:
+            return self.driver.find_element(*self.locator)
+        else:
+            return self.element
 
     def click(self):
         self.__get_element().click()
@@ -31,4 +35,10 @@ class Element:
 
     def get_content(self):
         return get_name_from_locator(self.locator[1])
+
+    @staticmethod
+    def list_from(driver, locator):
+        elements = driver.find_elements(*locator)
+        for element in elements:
+            yield Element(driver, locator, element=element)
 

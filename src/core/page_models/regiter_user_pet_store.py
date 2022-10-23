@@ -8,19 +8,19 @@ from urls import REGISTER_USER_PAGE
 
 class RegisterPage(BasePage):
 
-    USER_ID = (By.CSS_SELECTOR, "[name='username']")
-    PASSWORD = (By.CSS_SELECTOR, "[name='password']")
-    REPEAT_PASSWORD = (By.CSS_SELECTOR, "[name='repeatedPassword']")
-    FIRST_NAME = (By.CSS_SELECTOR, "[name='account.firstName']")
-    LAST_NAME = (By.CSS_SELECTOR, "[name='account.lastName']")
-    EMAIL = (By.CSS_SELECTOR, "[name='account.email']")
-    PHONE = (By.CSS_SELECTOR, "[name='account.phone']")
-    ADDRESS = (By.CSS_SELECTOR, "[name='account.address1']")
-    CITY = (By.CSS_SELECTOR, "[name='account.city']")
-    STATE = (By.CSS_SELECTOR, "[name='account.state']")
-    ZIP = (By.CSS_SELECTOR, "[name='account.zip']")
-    COUNTRY = (By.CSS_SELECTOR, "[name='account.country']")
-    CREATE_ACCOUNT = (By.CSS_SELECTOR, "[name='newAccount']")
+    __USER_ID = (By.CSS_SELECTOR, "[name='username']")
+    __PASSWORD = (By.CSS_SELECTOR, "[name='password']")
+    __REPEAT_PASSWORD = (By.CSS_SELECTOR, "[name='repeatedPassword']")
+    __FIRST_NAME = (By.CSS_SELECTOR, "[name='account.firstName']")
+    __LAST_NAME = (By.CSS_SELECTOR, "[name='account.lastName']")
+    __EMAIL = (By.CSS_SELECTOR, "[name='account.email']")
+    __PHONE = (By.CSS_SELECTOR, "[name='account.phone']")
+    __ADDRESS = (By.CSS_SELECTOR, "[name='account.address1']")
+    __CITY = (By.CSS_SELECTOR, "[name='account.city']")
+    __STATE = (By.CSS_SELECTOR, "[name='account.state']")
+    __ZIP = (By.CSS_SELECTOR, "[name='account.zip']")
+    __COUNTRY = (By.CSS_SELECTOR, "[name='account.country']")
+    __CREATE_ACCOUNT = (By.CSS_SELECTOR, "[name='newAccount']")
 
     def __init__(self, driver):
         self.driver = driver
@@ -32,43 +32,43 @@ class RegisterPage(BasePage):
         return self.driver.title == INDEX_TITLE
 
     def username_input(self):
-        return Element(self.driver, self.USER_ID)
+        return Element(self.driver, self.__USER_ID)
 
     def password_input(self):
-        return Element(self.driver, self.PASSWORD)
+        return Element(self.driver, self.__PASSWORD)
 
     def repeat_password_input(self):
-        return Element(self.driver, self.REPEAT_PASSWORD)
+        return Element(self.driver, self.__REPEAT_PASSWORD)
 
     def first_name_input(self):
-        return Element(self.driver, self.FIRST_NAME)
+        return Element(self.driver, self.__FIRST_NAME)
 
     def last_name_input(self):
-        return Element(self.driver, self.LAST_NAME)
+        return Element(self.driver, self.__LAST_NAME)
 
     def email_input(self):
-        return Element(self.driver, self.EMAIL)
+        return Element(self.driver, self.__EMAIL)
 
     def phone_input(self):
-        return Element(self.driver, self.PHONE)
+        return Element(self.driver, self.__PHONE)
 
     def address_input(self):
-        return Element(self.driver, self.ADDRESS)
+        return Element(self.driver, self.__ADDRESS)
 
     def city_input(self):
-        return Element(self.driver, self.CITY)
+        return Element(self.driver, self.__CITY)
 
     def state_input(self):
-        return Element(self.driver, self.STATE)
+        return Element(self.driver, self.__STATE)
 
     def zip_code_input(self):
-        return Element(self.driver, self.ZIP)
+        return Element(self.driver, self.__ZIP)
 
     def country_input(self):
-        return Element(self.driver, self.COUNTRY)
+        return Element(self.driver, self.__COUNTRY)
 
     def create_account_button(self):
-        return Element(self.driver, self.CREATE_ACCOUNT)
+        return Element(self.driver, self.__CREATE_ACCOUNT)
 
 
 

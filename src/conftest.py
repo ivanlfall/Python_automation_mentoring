@@ -83,5 +83,5 @@ def confirm_order(driver):
 
 
 @pytest.fixture
-def confirmation_by_summary(driver):
+def confirmation_buy_summary(driver):
     yield ConfirmationBuySummary(driver)
