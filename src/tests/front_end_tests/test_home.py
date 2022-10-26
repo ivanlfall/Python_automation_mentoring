@@ -7,27 +7,21 @@ from utilities.print_with_format import print_sent_payload_from_object
 from utilities.utils import get_random_text
 
 
-@pytest.mark.skip()
 def test_home_load(index_home, register_page):
     index_home.load()
     assert_that(index_home.title()).is_equal_to(INDEX_TITLE)
     assert_at_page(index_home)
 
 
-# @pytest.mark.skip()
 def test_search_bar(index_home, result_page):
     search_input = 'Bulldog'
     index_home.load()
     index_home.search_input().insert_value(search_input)
     index_home.search_button().click()
-    # result = result_page.get_actual_result()
-    # print(result.get_inner_text())
-    content_result = result_page.get_result_list()
-    print(content_result)
-    # assert_that(content_result).contains(search_input)
+    search_result = result_page.result_links()
+    assert_that(search_result).extracting('get_inner_text').contains(search_input)
 
 
-# @pytest.mark.skip()
 def test_register_user_with_correct_data(index_home, sign_in_page, register_page):
     factory = Factory()
     user = factory.get_me(Factory.USER_FOR_REGISTER)
@@ -52,6 +46,33 @@ def test_register_user_with_correct_data(index_home, sign_in_page, register_page
     print_sent_payload_from_object(user)
 
     assert_at_page(index_home)
+
+
+def test_register_user_with_incorrect_data(index_home, sign_in_page, register_page, driver, error_page):
+    factory = Factory()
+    user = factory.get_me(Factory.USER_FOR_REGISTER)
+    user.country = ''
+
+    index_home.load()
+    index_home.sign_in_button().click()
+    sign_in_page.register_button().click()
+
+    register_page.username_input().insert_value(user.id)
+    register_page.password_input().insert_value(user.password)
+    register_page.repeat_password_input().insert_value(user.password)
+    register_page.first_name_input().insert_value(user.first_name)
+    register_page.last_name_input().insert_value(user.last_name)
+    register_page.email_input().insert_value(user.email)
+    register_page.phone_input().insert_value(user.phone)
+    register_page.address_input().insert_value(user.address)
+    register_page.city_input().insert_value(user.city)
+    register_page.state_input().insert_value(user.state)
+    register_page.zip_code_input().insert_value(user.zip_code)
+    register_page.country_input().insert_value(user.country)
+    register_page.create_account_button().click()
+    print_sent_payload_from_object(user)
+
+    assert_at_page(error_page)
 
 
 def test_login_successful_with_correct_data(index_home, sign_in_page, register_page, home_after_login):
@@ -135,7 +156,4 @@ def login(index_home, register_page, sign_in_page):
 
 
 def assert_buy(purchase, buy_summary):
-    bought_items_text = []
-    for item in buy_summary:
-        bought_items_text.append(item.get_inner_text())
-    assert_that(bought_items_text).contains(purchase)
+    assert_that(buy_summary).extracting('get_inner_text').contains(purchase)

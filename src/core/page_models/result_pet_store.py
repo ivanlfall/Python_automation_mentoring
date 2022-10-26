@@ -11,10 +11,7 @@ class ResultPagePetStore(BasePage):
     def __init__(self, driver):
         self.driver = driver
 
-    def get_result_list(self):
-        links = self.driver.find_elements(*self.__RESULT_LINKS)
-        return [title.text for title in links]
-
-    def get_actual_result(self):
-        return Element(self.driver, self.__RESULT_LINKS)
+    def result_links(self):
+        elements = Element.list_from(self.driver, self.__RESULT_LINKS)
+        return elements
 

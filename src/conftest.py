@@ -8,6 +8,7 @@ from core.page_models.confirm_order import ConfirmOrder
 from core.page_models.confirmation_buy_summary import ConfirmationBuySummary
 from core.page_models.dog_catalog import DogCatalog
 from core.page_models.dog_info import DogInfo
+from core.page_models.error_page import ErrorPage
 from core.page_models.home_after_login import HomeAfterLogin
 from core.page_models.index_pet_store import IndexPetStore
 from core.page_models.regiter_user_pet_store import RegisterPage
@@ -85,3 +86,8 @@ def confirm_order(driver):
 @pytest.fixture
 def confirmation_buy_summary(driver):
     yield ConfirmationBuySummary(driver)
+
+
+@pytest.fixture
+def error_page(driver):
+    yield ErrorPage(driver)

@@ -23,4 +23,5 @@ def print_test_info_with_schema(endpoint, response_body, schema):
 
 
 def print_sent_payload_from_object(sent_object):
+    print("\nSent payload: ")
     print(json.dumps(sent_object.__dict__, indent=4))
