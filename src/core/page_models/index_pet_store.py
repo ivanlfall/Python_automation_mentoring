@@ -47,5 +47,3 @@ class IndexPetStore(BasePage):
 
     def elements(self):
         return [self.sign_in_button(), self.side_bar(), self.main_content()]
-
-    # //a[text()="K9-BD-01"] button to buy a bulldog

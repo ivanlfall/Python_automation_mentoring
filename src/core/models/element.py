@@ -1,6 +1,6 @@
 from selenium.common import NoSuchElementException
 
-from utilities.utils import get_name_from_locator
+from utilities.tools import get_name_from_locator
 
 
 class Element:
@@ -11,7 +11,7 @@ class Element:
         self.element = element
 
     def __get_element(self):
-        if self.element is None:
+        if not self.element:
             return self.driver.find_element(*self.locator)
         else:
             return self.element

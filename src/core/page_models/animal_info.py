@@ -4,7 +4,7 @@ from core.models.element import Element
 from core.page_models.base_page import BasePage
 
 
-class DogInfo(BasePage):
+class AnimalInfo(BasePage):
 
     __ADD_TO_CARD_BUTTON = (By.CSS_SELECTOR, "[class='Button']")
 

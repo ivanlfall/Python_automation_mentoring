@@ -3,11 +3,11 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+from core.page_models.animal_catalog import AnimalCatalog
+from core.page_models.animal_info import AnimalInfo
 from core.page_models.buy_details import BuyDetails
 from core.page_models.confirm_order import ConfirmOrder
 from core.page_models.confirmation_buy_summary import ConfirmationBuySummary
-from core.page_models.dog_catalog import DogCatalog
-from core.page_models.dog_info import DogInfo
 from core.page_models.error_page import ErrorPage
 from core.page_models.home_after_login import HomeAfterLogin
 from core.page_models.index_pet_store import IndexPetStore
@@ -15,7 +15,7 @@ from core.page_models.regiter_user_pet_store import RegisterPage
 from core.page_models.result_pet_store import ResultPagePetStore
 from core.page_models.shopping_cart import ShoppingCart
 from core.page_models.sign_in import SignInPetStore
-from core.page_models.specific_dog_catalog import SpecificDogCatalog
+from core.page_models.specific_breed_catalog import SpecificBreedCatalog
 
 
 @pytest.fixture(scope="module")
@@ -54,18 +54,18 @@ def home_after_login(driver):
 
 
 @pytest.fixture
-def dog_catalog(driver):
-    yield DogCatalog(driver)
+def animal_catalog(driver):
+    yield AnimalCatalog(driver)
 
 
 @pytest.fixture
-def specific_dog_catalog(driver):
-    yield SpecificDogCatalog(driver)
+def specific_breed_catalog(driver):
+    yield SpecificBreedCatalog(driver)
 
 
 @pytest.fixture
-def dog_info(driver):
-    yield DogInfo(driver)
+def animal_info(driver):
+    yield AnimalInfo(driver)
 
 
 @pytest.fixture

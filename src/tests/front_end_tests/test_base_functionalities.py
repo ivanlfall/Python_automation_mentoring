@@ -4,7 +4,8 @@ from assertpy import assert_that, soft_assertions
 from resources.data import INDEX_TITLE
 from utilities.get_me import Factory
 from utilities.print_with_format import print_sent_payload_from_object
-from utilities.utils import get_random_text
+from utilities.tools import get_random_text
+from utilities.util import create_account
 
 
 def test_home_load(index_home, register_page):
@@ -48,7 +49,7 @@ def test_register_user_with_correct_data(index_home, sign_in_page, register_page
     assert_at_page(index_home)
 
 
-def test_register_user_with_incorrect_data(index_home, sign_in_page, register_page, driver, error_page):
+def test_cannot_register_user_with_incorrect_data(index_home, sign_in_page, register_page, driver, error_page):
     factory = Factory()
     user = factory.get_me(Factory.USER_FOR_REGISTER)
     user.country = ''
@@ -82,10 +83,10 @@ def test_login_successful_with_correct_data(index_home, sign_in_page, register_p
     sign_in_page.password_input().insert_value(password)
     sign_in_page.login_button().click()
     assert_at_page(home_after_login)
+    home_after_login.sign_out_button()
 
 
-@pytest.mark.skip()
-def test_login_with_incorrect_data_is_not_possible(sign_in_page):
+def test_cannot_login_with_incorrect_data(sign_in_page):
     username = get_random_text()
     password = get_random_text()
     sign_in_page.load()
@@ -97,48 +98,6 @@ def test_login_with_incorrect_data_is_not_possible(sign_in_page):
     assert_at_page(sign_in_page)
 
 
-def test_buy_a_dog(index_home, dog_catalog, specific_dog_catalog, dog_info, register_page, sign_in_page,
-                   shopping_cart, buy_details, confirm_order, confirmation_buy_summary):
-    index_home.load()
-    login(index_home, register_page, sign_in_page)
-    index_home.side_bar_dogs_button().click()
-    dog_catalog.dog_breed_choice().click()
-    dog_item = specific_dog_catalog.dog_item()
-    dog_item_text = dog_item.get_inner_text()
-    dog_item.click()
-    dog_info.add_to_card_button().click()
-    shopping_cart.proceed_to_checkout().click()
-    buy_details.continue_button().click()
-    confirm_order.confirm_button().click()
-
-    message = confirmation_buy_summary.confirmation_message().get_inner_text()
-    assert_that(message).contains("order has been submitted")
-    assert_buy(dog_item_text, confirmation_buy_summary.bought_items())
-
-
-def create_account(register_page):
-    factory = Factory()
-    user = factory.get_me(Factory.USER_FOR_REGISTER)
-
-    register_page.load()
-    register_page.username_input().insert_value(user.id)
-    register_page.password_input().insert_value(user.password)
-    register_page.repeat_password_input().insert_value(user.password)
-    register_page.first_name_input().insert_value(user.first_name)
-    register_page.last_name_input().insert_value(user.last_name)
-    register_page.email_input().insert_value(user.email)
-    register_page.phone_input().insert_value(user.phone)
-    register_page.address_input().insert_value(user.address)
-    register_page.city_input().insert_value(user.city)
-    register_page.state_input().insert_value(user.state)
-    register_page.zip_code_input().insert_value(user.zip_code)
-    register_page.country_input().insert_value(user.country)
-    register_page.create_account_button().click()
-    print_sent_payload_from_object(user)
-
-    return user.id, user.password
-
-
 def assert_at_page(page):
     with soft_assertions():
         for element in page.elements():
@@ -146,14 +105,8 @@ def assert_at_page(page):
             assert_that(element.is_present()).described_as(error_message).is_true()
 
 
-# TODO look for a way to do this a fixture.
-def login(index_home, register_page, sign_in_page):
-    username, password = create_account(register_page)
-    index_home.sign_in_button().click()
-    sign_in_page.username_input().insert_value(username)
-    sign_in_page.password_input().insert_value(password)
-    sign_in_page.login_button().click()
-
-
-def assert_buy(purchase, buy_summary):
-    assert_that(buy_summary).extracting('get_inner_text').contains(purchase)
+@pytest.fixture(autouse=True)
+def logout_after_test(home_after_login):
+    yield
+    if home_after_login.sign_out_button().is_present():
+        home_after_login.sign_out_button().click()
