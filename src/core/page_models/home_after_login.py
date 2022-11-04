@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 from core.models.element import Element
 from core.page_models.base_page import BasePage
+from resources.urls import LOG_OUT
 
 
 class HomeAfterLogin(BasePage):
@@ -23,6 +24,9 @@ class HomeAfterLogin(BasePage):
 
     def my_account_button(self):
         return Element(self.driver, self.__MY_ACCOUNT_BUTTON)
+
+    def log_out(self):
+        self.driver.get(LOG_OUT)
 
     def elements(self):
         return [self.welcome_message(), self.my_account_button(), self.sign_out_button()]

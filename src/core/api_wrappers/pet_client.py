@@ -1,7 +1,7 @@
 from json import dumps
 
 from core.api_wrappers.base_client import BaseClient
-from urls import BASE_URL
+from resources.urls import BASE_URL
 from utilities.get_me import Factory
 
 

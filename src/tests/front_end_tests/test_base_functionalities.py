@@ -83,7 +83,7 @@ def test_login_successful_with_correct_data(index_home, sign_in_page, register_p
     sign_in_page.password_input().insert_value(password)
     sign_in_page.login_button().click()
     assert_at_page(home_after_login)
-    home_after_login.sign_out_button()
+
 
 
 def test_cannot_login_with_incorrect_data(sign_in_page):
@@ -109,4 +109,4 @@ def assert_at_page(page):
 def logout_after_test(home_after_login):
     yield
     if home_after_login.sign_out_button().is_present():
-        home_after_login.sign_out_button().click()
+        home_after_login.log_out()

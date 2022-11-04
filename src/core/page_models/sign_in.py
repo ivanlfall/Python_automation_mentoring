@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 
 from core.models.element import Element
 from core.page_models.base_page import BasePage
-from urls import SIGN_IN
+from resources.urls import SIGN_IN
 
 
 class SignInPetStore(BasePage):

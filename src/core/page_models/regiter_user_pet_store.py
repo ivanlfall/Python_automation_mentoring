@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from core.models.element import Element
 from core.page_models.base_page import BasePage
 from resources.data import INDEX_TITLE
-from urls import REGISTER_USER_PAGE
+from resources.urls import REGISTER_USER_PAGE
 
 
 class RegisterPage(BasePage):

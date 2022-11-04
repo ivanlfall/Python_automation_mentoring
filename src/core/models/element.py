@@ -1,5 +1,6 @@
 from selenium.common import NoSuchElementException
 
+from utilities.tools import ExplicitWait
 from utilities.tools import get_name_from_locator
 
 
@@ -11,10 +12,10 @@ class Element:
         self.element = element
 
     def __get_element(self):
-        if not self.element:
-            return self.driver.find_element(*self.locator)
-        else:
+        if self.element:
             return self.element
+        else:
+            return self.driver.find_element(*self.locator)
 
     def click(self):
         self.__get_element().click()
@@ -23,12 +24,13 @@ class Element:
         self.__get_element().clear()
         self.__get_element().send_keys(value)
 
-    def is_present(self):
-        try:
-            self.__get_element()
-            return True
-        except NoSuchElementException:
-            return False
+    def is_present(self, wait_time=3):
+        with ExplicitWait(self.driver, wait_time):
+            try:
+                self.__get_element()
+                return True
+            except NoSuchElementException:
+                return False
 
     def get_inner_text(self):
         return self.__get_element().get_attribute('innerText')

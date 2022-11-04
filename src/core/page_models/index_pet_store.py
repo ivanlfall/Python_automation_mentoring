@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 
 from core.models.element import Element
 from core.page_models.base_page import BasePage
-from urls import HOME_PET_STORE
+from resources.urls import HOME_PET_STORE
 
 
 class IndexPetStore(BasePage):
