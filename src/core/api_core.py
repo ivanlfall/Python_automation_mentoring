@@ -3,6 +3,8 @@ from json import JSONDecodeError
 
 import requests
 
+from utilities.print_with_format import print_request_info
+
 
 @dataclass
 class Response:
@@ -16,14 +18,17 @@ class Response:
 class APIRequest:
     def get(self, url):
         response = requests.get(url)
+        print_request_info(response)
         return self.__get_responses(response, url)
 
     def post(self, url, payload, headers):
         response = requests.post(url, data=payload, headers=headers)
+        print_request_info(response)
         return self.__get_responses(response, url)
 
     def delete(self, url):
         response = requests.delete(url)
+        print_request_info(response)
         return self.__get_responses(response, url)
 
     def __get_responses(self, response, endpoint):

@@ -1,15 +1,30 @@
 import json
 
 
-def print_test_info(endpoint, sent_body, response_body, response_code):
-    final_message = {
-        'endpoint': endpoint,
-        'response_code': response_code,
-        'sent_body': sent_body,
-        'response_body': response_body
-    }
+def print_request_info(response):
 
-    print(json.dumps(final_message, indent=4, sort_keys=False))
+    date_time = response.headers["Date"]
+    verb = response.request.method
+    url = response.request.url
+    header = response.request.headers
+    request_body = json.loads(response.request.body) if response.request.body else {}
+    response_code = response.status_code
+    response_body = json.loads(response.text) if response.text else {}
+    elapsed_time = response.elapsed
+    size = len(response.content)
+    final_message = f"""
+    {date_time}
+    ************************************************************************
+    {verb} / {url}
+    Request headers: {header}
+    Request body: {json.dumps(request_body, indent=8, sort_keys=False)}
+    Response code: {response_code}
+    Response body: {json.dumps(response_body, indent=8, sort_keys=False)}
+    Elapsed time: {elapsed_time}, {size} bytes
+    ************************************************************************
+    """
+
+    print(final_message)
 
 
 def print_test_info_with_schema(endpoint, response_body, schema):
