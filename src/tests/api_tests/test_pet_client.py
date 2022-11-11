@@ -29,6 +29,26 @@ def test_new_pet_can_be_added():
     assert_that_body_content_are_equals(pet.__dict__, response.as_dict)
 
 
+def test_pet_without_name_cannot_be_added():
+
+    pet = _factory.get_me(Factory.PET)
+    pet.name = ""
+    _, response = pet_client.create_pet(pet)
+    print_test_info(response.endpoint, pet.__dict__, response.as_dict, response.status_code)
+
+    assert_that(response.status_code).is_equal_to(requests.codes.bad_request)
+
+
+def test_pet_without_photo_cannot_be_added():
+
+    pet = _factory.get_me(Factory.PET)
+    pet.photoUrls = None
+    _, response = pet_client.create_pet(pet)
+    print_test_info(response.endpoint, pet.__dict__, response.as_dict, response.status_code)
+
+    assert_that(response.status_code).is_equal_to(requests.codes.bad_request)
+
+
 def test_created_pet_can_be_deleted():
     pet, response = pet_client.create_pet()
     response = pet_client.delete_pet_by_id(pet.id)
