@@ -1,5 +1,4 @@
 from utilities.get_me import Factory
-from utilities.print_with_format import print_sent_payload_from_object
 
 
 def create_account(register_page):
@@ -20,6 +19,5 @@ def create_account(register_page):
     register_page.zip_code_input().insert_value(user.zip_code)
     register_page.country_input().insert_value(user.country)
     register_page.create_account_button().click()
-    print_sent_payload_from_object(user)
 
     return user.id, user.password

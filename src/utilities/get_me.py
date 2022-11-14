@@ -4,6 +4,7 @@ from core.models.pet import Pet
 from core.models.user import User
 from core.models.user_for_register import UserForRegister
 from resources.data import animal
+from utilities.print_with_format import print_sent_payload_from_object
 
 
 class Factory:
@@ -65,6 +66,8 @@ class Factory:
         state = self.fake.state()
         zip_code = self.fake.postcode()
         country = self.fake.country()
-
-        return UserForRegister(user_id, password, first_name, last_name, email, phone, address,
+        user = UserForRegister(user_id, password, first_name, last_name, email, phone, address,
                                city, state, zip_code, country)
+        print_sent_payload_from_object(user)
+
+        return user

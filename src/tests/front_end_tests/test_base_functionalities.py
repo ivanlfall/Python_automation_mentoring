@@ -3,7 +3,6 @@ from assertpy import assert_that, soft_assertions
 
 from resources.data import INDEX_TITLE
 from utilities.get_me import Factory
-from utilities.print_with_format import print_sent_payload_from_object
 from utilities.tools import get_random_text
 from utilities.util import create_account
 
@@ -44,7 +43,6 @@ def test_register_user_with_correct_data(index_home, sign_in_page, register_page
     register_page.zip_code_input().insert_value(user.zip_code)
     register_page.country_input().insert_value(user.country)
     register_page.create_account_button().click()
-    print_sent_payload_from_object(user)
 
     assert_at_page(index_home)
 
@@ -71,7 +69,6 @@ def test_cannot_register_user_with_incorrect_data(index_home, sign_in_page, regi
     register_page.zip_code_input().insert_value(user.zip_code)
     register_page.country_input().insert_value(user.country)
     register_page.create_account_button().click()
-    print_sent_payload_from_object(user)
 
     assert_at_page(error_page)
 
@@ -83,7 +80,6 @@ def test_login_successful_with_correct_data(index_home, sign_in_page, register_p
     sign_in_page.password_input().insert_value(password)
     sign_in_page.login_button().click()
     assert_at_page(home_after_login)
-
 
 
 def test_cannot_login_with_incorrect_data(sign_in_page):
