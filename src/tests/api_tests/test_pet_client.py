@@ -2,8 +2,8 @@ import requests
 from assertpy import assert_that
 
 from core.api_wrappers.pet_client import PetClient
-from core.assertions.custom_assertions import assert_that_body_content_are_equals, assert_that_is_the_correct_schema, \
-    assert_successful_operation
+from core.assertions.custom_assertions import assert_that_is_the_correct_schema, \
+    assert_successful_operation, assert_that_body_content_are_equals
 from utilities.get_me import Factory
 from utilities.print_with_format import print_test_info_with_schema
 

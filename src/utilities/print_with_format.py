@@ -1,15 +1,16 @@
 import json
+from datetime import datetime
 
 
 def print_request_info(response):
 
-    date_time = response.headers["Date"]
+    date_time = f'{datetime.now().strftime("%d/%m/%Y_%H:%M:%S")}'
     verb = response.request.method
     url = response.request.url
     header = response.request.headers
-    request_body = json.loads(response.request.body) if response.request.body else {}
+    request_body = response.request.body
     response_code = response.status_code
-    response_body = json.loads(response.text) if response.text else {}
+    response_body = response.text
     elapsed_time = response.elapsed
     size = len(response.content)
     final_message = f"""
@@ -17,10 +18,10 @@ def print_request_info(response):
     ************************************************************************
     {verb} / {url}
     Request headers: {header}
-    Request body: {json.dumps(request_body, indent=8, sort_keys=False)}
+    Request body: {request_body}
     Response code: {response_code}
-    Response body: {json.dumps(response_body, indent=8, sort_keys=False)}
-    Elapsed time: {elapsed_time}, {size} bytes
+    Response body: {response_body}
+    Elapsed time: {elapsed_time} - Size: {size} bytes
     ************************************************************************
     """
 
