@@ -1,10 +1,10 @@
 import pytest
 from assertpy import assert_that, soft_assertions
 
+from core.page_models.useful_methods.useful_methods import create_account
 from resources.data import INDEX_TITLE
 from utilities.get_me import Factory
 from utilities.tools import get_random_text
-from utilities.util import create_account
 
 
 def test_home_load(index_home, register_page):
@@ -83,8 +83,8 @@ def test_login_successful_with_correct_data(index_home, sign_in_page, register_p
 
 
 def test_cannot_login_with_incorrect_data(sign_in_page):
-    username = get_random_text()
-    password = get_random_text()
+    username = get_random_text(max_length=12)
+    password = get_random_text(max_length=8)
     sign_in_page.load()
     sign_in_page.username_input().insert_value(username)
     sign_in_page.password_input().insert_value(password)
@@ -97,7 +97,7 @@ def test_cannot_login_with_incorrect_data(sign_in_page):
 def assert_at_page(page):
     with soft_assertions():
         for element in page.elements():
-            error_message = f'In page {page} find element <{element.get_content()}>'
+            error_message = f'In page {page} find <{element.get_name()}>'
             assert_that(element.is_present()).described_as(error_message).is_true()
 
 

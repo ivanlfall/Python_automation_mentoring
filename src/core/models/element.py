@@ -1,7 +1,8 @@
+import inspect
+
 from selenium.common import NoSuchElementException
 
-from utilities.tools import ExplicitWait
-from utilities.tools import get_name_from_locator
+from utilities.explicit_wait_context import ExplicitWait
 
 
 class Element:
@@ -10,6 +11,7 @@ class Element:
         self.locator = locator
         self.driver = driver
         self.element = element
+        self.name = inspect.stack()[1].function  # Get function name that called to Element.__init__
 
     def __get_element(self):
         if self.element:
@@ -35,8 +37,11 @@ class Element:
     def get_inner_text(self):
         return self.__get_element().get_attribute('innerText')
 
-    def get_content(self):
-        return get_name_from_locator(self.locator[1])
+    def get_name(self):
+        def formatted_name(name):
+            return name.upper().replace("_", " ")
+
+        return formatted_name(self.name)
 
     @staticmethod
     def list_from(driver, locator):

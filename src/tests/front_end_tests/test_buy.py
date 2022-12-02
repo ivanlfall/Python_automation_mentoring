@@ -1,7 +1,7 @@
 import pytest
 from assertpy import assert_that
 
-from utilities.util import create_account
+from core.page_models.useful_methods.useful_methods import create_account
 
 DOG_BREEDS = ["Bulldog", "Chihuahua", "Dalmation"]
 CAT_BREEDS = ["Manx", "Persian"]
