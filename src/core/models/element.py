@@ -40,7 +40,7 @@ class Element:
     @staticmethod
     def list_from(driver, locator):
         web_elements = driver.find_elements(*locator)
-        element_locator = lambda position: f"{locator}[{position}]"
+        element_locator = lambda position: (locator[0], f"{locator[1]}[{position}]")
         for position, web_element in enumerate(web_elements, start=1):
             yield Element(driver, element_locator(position), web_element=web_element)
 
