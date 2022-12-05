@@ -7,15 +7,15 @@ from utilities.explicit_wait_context import ExplicitWait
 
 class Element:
 
-    def __init__(self, driver, locator, element=None):
+    def __init__(self, driver, locator, web_element=None, name=None):
         self.locator = locator
         self.driver = driver
-        self.element = element
-        self.name = inspect.stack()[1].function  # Get function name that called to Element.__init__
+        self.web_element = web_element
+        self.name = name if name else self.__get_name_from_stack()
 
     def __get_element(self):
-        if self.element:
-            return self.element
+        if self.web_element:
+            return self.web_element
         else:
             return self.driver.find_element(*self.locator)
 
@@ -37,15 +37,15 @@ class Element:
     def get_inner_text(self):
         return self.__get_element().get_attribute('innerText')
 
-    def get_name(self):
-        def formatted_name(name):
-            return name.upper().replace("_", " ")
-
-        return formatted_name(self.name)
-
     @staticmethod
     def list_from(driver, locator):
-        elements = driver.find_elements(*locator)
-        for element in elements:
-            yield Element(driver, locator, element=element)
+        web_elements = driver.find_elements(*locator)
+        element_locator = lambda position: f"{locator}[{position}]"
+        for position, web_element in enumerate(web_elements, start=1):
+            yield Element(driver, element_locator(position), web_element=web_element)
 
+    def __get_name_from_stack(self):
+        for line in inspect.stack():
+            if (parent := line[0].f_locals.get('self', None)) and isinstance(parent, self.__class__):
+                continue
+            return f"{parent.__class__.__name__}::{line.function}" if parent else line.function

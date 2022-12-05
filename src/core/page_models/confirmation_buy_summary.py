@@ -7,7 +7,7 @@ from core.page_models.base_page import BasePage
 class ConfirmationBuySummary(BasePage):
 
     __CONFIRMATION_MESSAGE = (By.XPATH, '//ul//li')
-    __BOUGHT_ITEMS = (By.CSS_SELECTOR, 'td>a')
+    __BOUGHT_ITEMS = (By.XPATH, '(//td/a)')
 
     def __init__(self, driver):
         self.driver = driver

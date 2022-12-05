@@ -97,7 +97,7 @@ def test_cannot_login_with_incorrect_data(sign_in_page):
 def assert_at_page(page):
     with soft_assertions():
         for element in page.elements():
-            error_message = f'In page {page} find <{element.get_name()}>'
+            error_message = f'In page {page} find <{element.name}>'
             assert_that(element.is_present()).described_as(error_message).is_true()
 
 

@@ -31,7 +31,7 @@ def test_new_pet_can_be_added():
 def test_pet_without_name_cannot_be_added():
 
     pet = _factory.get_me(Factory.PET)
-    pet.name = ""
+    pet.name = None
     _, response = pet_client.create_pet(pet)
 
     assert_that(response.status_code).is_equal_to(requests.codes.bad_request)
